@@ -1,0 +1,100 @@
+import React, { useContext } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../AuthContext";
+
+
+
+
+function SignIn() {
+    const { register, handleSubmit, setError, formState: { errors } } = useForm();
+    const { login } = useContext(AuthContext);
+    const navigate = useNavigate();
+    function onSubmit(data) {
+        const success = login(data);
+
+        if (!success) {
+            setError("credential", { "message": "Incorrect Credential" });
+            return;
+        }
+
+        alert(
+            `Login Successfully`,
+        );
+
+        // go to home
+        navigate('/home');
+        
+    };
+
+    return (
+      <div className=" w-full h-full flex justify-center items-start">
+        <form onSubmit={handleSubmit(onSubmit)} className="">
+          <div className="mb-2">
+            <h1 className="text-center font-bold my-1 text-3xl">Sign-in</h1>
+            {errors.credential && (
+              <p className="text-red-500 text-center">{errors.credential.message}</p>
+            )}
+            <label htmlFor="email" className="block font-bold">
+              Email
+            </label>
+            <input
+              type="email"
+              placeholder="Enter your Email"
+              className="border rounded p-1 w-full"
+              {...register("email", {
+                required: "Email is required",
+              })}
+            />
+
+            {errors.email && (
+              <p className="text-red-500">{errors.email.message}</p>
+            )}
+          </div>
+
+          <div className="mb-2">
+            <label htmlFor="password" className="block font-bold">
+              Password
+            </label>
+            <input
+              type="password"
+              placeholder="Enter your Password"
+              className="border rounded p-1 w-full"
+              {...register("password", {
+                required: "Password is required",
+                minLength: {
+                  value: 8,
+                  message: "Password length must be at least 8 character",
+                },
+                maxLength: {
+                  value: 30,
+                  message: "Password maximum lenght is 30 characters",
+                },
+              })}
+            />
+            {errors.password && (
+              <p className="text-red-500">{errors.password.message}</p>
+            )}
+          </div>
+
+          <div className="mb-2 text-center">
+            <input
+              type="submit"
+              value="Sign-in"
+              className="bg-green-300 px-3 py-1 rounded "
+            />
+          </div>
+          <div className="mb-2">
+            <p>
+              Doesnt have an account?{" "}
+              <Link to="/sign-up" className="text-blue-500">
+                Register
+              </Link>
+            </p>
+          </div>
+        </form>
+      </div>
+    );
+}
+
+export default SignIn;
