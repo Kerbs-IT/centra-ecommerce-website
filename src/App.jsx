@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Auth from './pages/Auth';
 import Checkout from './pages/Checkout';
 import Navbar from './components/Navbar';
+import { AuthProvider } from './AuthContext';
 
 
 function App() {
@@ -14,14 +15,18 @@ function App() {
 
   return (
     <div className="app bg-gray-100 min-h-dvh flex flex-col">
-      <Navbar />
-      <main className='flex-1'>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/checkout" element={<Checkout />} />
-        </Routes>
-      </main>
+      <AuthProvider>
+        <Navbar />
+        <main className="flex-1">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/sign-in" element={<Auth mode="signin" />} />
+            <Route path="/sign-up" element={<Auth mode="signup" />} />
+            <Route path="/checkout" element={<Checkout />} />
+          </Routes>
+        </main>
+      </AuthProvider>
     </div>
   );
 }
