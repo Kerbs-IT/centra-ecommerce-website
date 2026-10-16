@@ -1,3 +1,5 @@
+
+import { Spinner } from "@/components/ui/spinner";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -5,18 +7,28 @@ import { useForm } from "react-hook-form";
 function Auth() {
     const [mode, setMode] = useState("signup");
     const { register, handleSubmit, setError, formState: { errors } } = useForm();
+    const [loading, setLoading] = useState(false);
     
-    function OnSubmit(data) {
-        
+    async function onSubmit(data) {
+        setLoading(true);
+        await new Promise((r) => setTimeout(r, 1000));
+        if (mode === 'signup') {
+            
+            alert("Registration Complete");
+        } else {
+            alert("login successfully")
+            
+        }
+        setLoading(false);
     }
     
     return (
       <div className="page min-h-[calc(100dvh-4rem)] w-full flex flex-col items-center justify-center">
-        <div className="auth-container bg-white p-3 rounded-b-lg">
+        <div className="auth-container bg-white  p-5 rounded-b-lg max-w-1/3">
           <h1 className="page-title font-bold text-4xl text-center mb-5">
             {mode === "signup" ? "Register" : "Sign-In"}
           </h1>
-          <form action={handleSubmit(OnSubmit)}>
+          <form action={handleSubmit(onSubmit)}>
             <div className="mb-2">
               <label htmlFor="email" className="block font-bold">
                 Email:
@@ -61,11 +73,12 @@ function Auth() {
               )}
             </div>
             <div className="mb-5 w-full flex justify-center">
-              <input
-                type="submit"
-                className="py-2 px-5  font-bold rounded  bg-blue-600 text-white"
-                value={mode === "signup" ? "Sign Up" : "Sign In"}
-              />
+              <button
+                disabled={loading}
+                className="py-2 px-5 disabled:opacity-50 flex gap-1 items-center justify-center  font-bold rounded  bg-blue-600 text-white"
+              >{loading&& <Spinner />}
+                {mode === "signup" ? "Sign Up" : "Sign In"}
+              </button>
             </div>
             <div className="mb-2">
               <p className="text-center">
