@@ -1,0 +1,38 @@
+import { products } from "@/data/products";
+import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
+
+function ProductDetails() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const item = products.find((data) => data.id === Number(id));
+
+  return (
+    <>
+      <button
+        onClick={() => navigate(-1)}
+        className="w-3/4 mx-auto block text-left  mt-4 text-blue-600 font-bold hover:underline"
+      >
+        ← Back
+      </button>
+      <section className="grid grid-cols-2 mx-auto mt-4 bg-white p-5 w-3/4 min-h-96">
+        <img src={item.image} alt="" className="object-contain h-full w-full" />
+        <div className="product-details flex flex-col">
+          <h1 className="product-name font-bold text-3xl mb-2">
+            {item.name ?? "< item-name >"}
+          </h1>
+          <h3 className="text-wrap text-lg mb-2">
+            {item.description ?? "< item-description >"}
+          </h3>
+          <h3 className="item-price font-bold text-xl">$ {item.price}</h3>
+
+          <button className=" self-end hover:cursor-pointer bg-red-500 p-2 rounded text-white font-bold">
+            Checkout
+          </button>
+        </div>
+      </section>
+    </>
+  );
+}
+
+export default ProductDetails;

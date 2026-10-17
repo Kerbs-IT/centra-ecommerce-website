@@ -24,7 +24,7 @@ function Auth({ mode }) {
        if (!success) {
          setError("email", { message: "Email is already registered" });
        } else {
-         navigate("/sign-in");
+         navigate("/");
        }
      } else {
        const success = login(data);
