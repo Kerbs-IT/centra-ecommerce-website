@@ -25,10 +25,14 @@ function ProductDetails() {
             {item.description ?? "< item-description >"}
           </h3>
           <h3 className="item-price font-bold text-xl">$ {item.price}</h3>
-
-          <button className=" self-end hover:cursor-pointer bg-red-500 p-2 rounded text-white font-bold">
-            Checkout
-          </button>
+          <div className="buttons flex flex-wrap w-full justify-end gap-1 ">
+            <button className=" self-end hover:cursor-pointer bg-red-500 p-2 rounded text-white font-bold">
+              Add to Cart
+            </button>
+            <button className=" self-end hover:cursor-pointer bg-orange-500 p-2 rounded text-white font-bold">
+              Checkout
+            </button>
+          </div>
         </div>
       </section>
     </>
