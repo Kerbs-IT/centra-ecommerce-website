@@ -23,7 +23,7 @@ function ProductCard({product}) {
           <p className="mt-auto pt-3 font-bold text-2xl mb-1">${product.price}</p>
 
           <div className="product-link flex flex-wrap gap-2 justify-end items-center w-full">
-            <Link className="bg-blue-600 hover:bg-blue-500 text-white py-2 px-2 rounded font-bold text-c">
+            <Link to={`/product/${product.id}`}  className="bg-blue-600 hover:bg-blue-500 text-white py-2 px-2 rounded font-bold text-c">
               View Details
             </Link>
             <button className="bg-red-600 hover:bg-red-500 text-white py-2 px-3 rounded font-bold">

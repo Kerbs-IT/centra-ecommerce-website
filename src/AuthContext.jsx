@@ -1,4 +1,4 @@
-import { createContext,useState } from "react";
+import { createContext,useEffect,useState } from "react";
 
 
 export const AuthContext = createContext(null);
@@ -7,8 +7,33 @@ export function AuthProvider({children}){
     
     // we will create two state for the user list and active user
 
-    const [users, setUsers] = useState([]);
-    const [currentUser, setCurrentUser] = useState(null);
+  const [users, setUsers] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem("users")) ?? [];  
+    } catch {
+      return [];
+      }
+    });
+  const [currentUser, setCurrentUser] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem("currentUser")) ?? null;
+    } catch {
+      return null;
+      }
+  });
+  
+  // save whenever they change
+  useEffect(() => {
+    localStorage.setItem("users", JSON.stringify(users))
+  }, [users]);
+
+  // add another useEffect for the currentUser so when there's a user set the local current user else remove it
+  // from the localstorage
+
+  useEffect(() => {
+    if (currentUser) localStorage.setItem("currentUser", JSON.stringify(currentUser));
+    else localStorage.removeItem("currentUser");
+  },[currentUser]);
 
 
     // create the signup functionality 
@@ -16,7 +41,10 @@ export function AuthProvider({children}){
         if (users.some((u) => u.email === email)) return false;
 
       setUsers((prev) => [...prev, { email, password }]);
-        
+        const { password: _pw, ...safeUser } = {email,password};
+
+        setCurrentUser({ ...safeUser, passwordLength: _pw.length });
+
         return true;
     };
 

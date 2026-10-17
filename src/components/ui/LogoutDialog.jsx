@@ -25,7 +25,7 @@ export function LogoutDialog() {
     <AlertDialog>
       <AlertDialogTrigger
         render={
-          <button className="bg-red-600  text-white px-4 py-1 font-bold rounded">
+          <button className="bg-red-600 hover:bg-red-500 hover:cursor-pointer text-white px-4 py-1 font-bold rounded">
             Logout
           </button>
         }
