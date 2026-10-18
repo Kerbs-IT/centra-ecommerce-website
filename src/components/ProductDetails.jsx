@@ -1,11 +1,14 @@
 import { products } from "@/data/products";
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "./ui/toast";
+import { CartContext } from "@/context/CartContext";
 
 function ProductDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const item = products.find((data) => data.id === Number(id));
+  const { addToCart } = useContext(CartContext);
 
   return (
     <>
@@ -26,7 +29,10 @@ function ProductDetails() {
           </h3>
           <h3 className="item-price font-bold text-xl">$ {item.price}</h3>
           <div className="buttons flex flex-wrap w-full justify-end gap-1 ">
-            <button className=" self-end hover:cursor-pointer bg-red-500 p-2 rounded text-white font-bold">
+            <button
+              onClick={() => addToCart(item)}
+              className=" self-end hover:cursor-pointer bg-red-500 p-2 rounded text-white font-bold"
+            >
               Add to Cart
             </button>
             <button className=" self-end hover:cursor-pointer bg-orange-500 p-2 rounded text-white font-bold">
