@@ -9,6 +9,8 @@ import Checkout from './pages/Checkout';
 import Navbar from './components/Navbar';
 import { AuthProvider } from './AuthContext';
 import ProductDetails from './components/ProductDetails';
+import { Toaster } from './components/ui/toast';
+import { CartProvider } from './context/CartContext';
 
 
 function App() {
@@ -17,17 +19,20 @@ function App() {
   return (
     <div className="app bg-gray-100 min-h-dvh flex flex-col">
       <AuthProvider>
-        <Navbar />
-        <main className="flex-1">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/sign-in" element={<Auth mode="signin" />} />
-            <Route path="/sign-up" element={<Auth mode="signup" />} />
-            <Route path="/product/:id" element={<ProductDetails />} />
-            <Route path="/checkout" element={<Checkout />} />
-          </Routes>
-        </main>
+        <CartProvider>
+          <Navbar />
+          <main className="flex-1">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/auth" element={<Auth />} />
+              <Route path="/sign-in" element={<Auth mode="signin" />} />
+              <Route path="/sign-up" element={<Auth mode="signup" />} />
+              <Route path="/product/:id" element={<ProductDetails />} />
+              <Route path="/checkout" element={<Checkout />} />
+            </Routes>
+            <Toaster />
+          </main>
+        </CartProvider>
       </AuthProvider>
     </div>
   );
