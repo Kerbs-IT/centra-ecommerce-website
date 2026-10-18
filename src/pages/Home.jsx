@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { products } from "../data/products";
 import { Link } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 
+
 function Home() {
+   
   return (
     <>
       <section className="home-hero-section min-h-[calc(100dvh-4rem)] flex-1 w-full flex flex-col items-start justify-center px-8 bg-linear-119 from-orange-400 from-50% to-orange-500 to-50% text-white">

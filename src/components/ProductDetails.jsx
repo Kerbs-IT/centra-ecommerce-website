@@ -35,7 +35,7 @@ function ProductDetails() {
             >
               Add to Cart
             </button>
-            <button className=" self-end hover:cursor-pointer bg-orange-500 p-2 rounded text-white font-bold">
+            <button onClick={() => navigate(`/checkout?buyNow=${item.id}`)} className=" self-end hover:cursor-pointer bg-orange-500 p-2 rounded text-white font-bold">
               Checkout
             </button>
           </div>

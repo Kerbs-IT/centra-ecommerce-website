@@ -11,6 +11,7 @@ import { AuthProvider } from './AuthContext';
 import ProductDetails from './components/ProductDetails';
 import { Toaster } from './components/ui/toast';
 import { CartProvider } from './context/CartContext';
+import Cart from './pages/Cart';
 
 
 function App() {
@@ -21,14 +22,15 @@ function App() {
       <AuthProvider>
         <CartProvider>
           <Navbar />
-          <main className="flex-1">
+          <main className="flex-1 ">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/sign-in" element={<Auth mode="signin" />} />
               <Route path="/sign-up" element={<Auth mode="signup" />} />
               <Route path="/product/:id" element={<ProductDetails />} />
-              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/checkout" element={<Checkout />}  />
+              <Route path="/cart" element={<Cart />} />
             </Routes>
             <Toaster />
           </main>
