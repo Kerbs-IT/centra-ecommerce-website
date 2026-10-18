@@ -1,5 +1,5 @@
-import { useContext, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import { CartContext } from "@/context/CartContext";
 import { products } from "../data/products";
 import { AuthContext } from "@/AuthContext";
@@ -19,6 +19,17 @@ function Checkout() {
     
     const [processing, setProcessing] = useState(false);
 
+    useEffect(() => {
+      if (!currentUser) {
+        toast.add({
+          type: "error",
+          description: "Please log in to checkout.",
+          timeout: 2500,
+        });
+      }
+    }, [currentUser]);
+
+    if (!currentUser) return <Navigate to="/sign-in" replace />;
    async function handlePlaceOrder() {
      setProcessing(true);
      try {
@@ -38,7 +49,7 @@ function Checkout() {
      }
    }
 
-  if (!currentUser) return <Navigate to="/sign-in" replace />;
+ 
   // always an array of { id, qty }, one item or many
   // "1,3" → [1, 3]
   const selectedIds = (searchParams.get("items") ?? "")
