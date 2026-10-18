@@ -25,7 +25,7 @@ function Navbar() {
                 Home
               </Link>
               <Link
-                to="/checkout"
+                to="/cart"
                 className="inine-block transition duration-300 ease-in-out font-bold hover:text-blue-500 text-xl transform hover:scale-120"
               >
                 Cart
